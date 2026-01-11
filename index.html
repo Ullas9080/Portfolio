@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ullas M - Full Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-tag {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.6);
+            transform: scale(1.05);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.3) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border: 3px solid #0a0a0a;
+            border-radius: 50%;
+            position: absolute;
+            left: 14px;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+
+        .contact-btn:hover::before {
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 10px;
+            }
+            .timeline-dot {
+                left: 4px;
+            }
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-opacity-90 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold gradient-text">Ullas M</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a>
+                    <a href="#about" class="nav-link text-gray-300 hover:text-white">About</a>
+                    <a href="#experience" class="nav-link text-gray-300 hover:text-white">Experience</a>
+                    <a href="#projects" class="nav-link text-gray-300 hover:text-white">Projects</a>
+                    <a href="#skills" class="nav-link text-gray-300 hover:text-white">Skills</a>
+                    <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-black bg-opacity-95 backdrop-filter backdrop-blur-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 text-gray-300 hover:text-white">Home</a>
+                <a href="#about" class="block px-3 py-2 text-gray-300 hover:text-white">About</a>
+                <a href="#experience" class="block px-3 py-2 text-gray-300 hover:text-white">Experience</a>
+                <a href="#projects" class="block px-3 py-2 text-gray-300 hover:text-white">Projects</a>
+                <a href="#skills" class="block px-3 py-2 text-gray-300 hover:text-white">Skills</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-300 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-16">
+        <div class="hero-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center fade-in">
+                <div class="mb-8 animate-float">
+                    <div class="w-40 h-40 mx-auto rounded-full gradient-bg p-1">
+                        <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center">
+                            <i class="fas fa-code text-6xl text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 fade-in stagger-1">
+                    Hi, I'm <span class="gradient-text">Ullas M</span>
+                </h1>
+                <p class="text-2xl md:text-3xl text-gray-300 mb-6 fade-in stagger-2">Full Stack Developer</p>
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 fade-in stagger-3">
+                    Building scalable web applications with MERN stack, AI-powered analytics, and modern cloud-native solutions
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mb-8 fade-in stagger-4">
+                    <a href="#contact" class="contact-btn gradient-bg px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                        Get In Touch
+                    </a>
+                    <a href="#projects" class="card px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all">
+                        View Projects
+                    </a>
+                </div>
+                <div class="flex justify-center gap-6 fade-in stagger-4">
+                    <a href="mailto:ullasgowda.dev@gmail.com" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/ullas-gowda9080" target="_blank" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/Ullas9080" target="_blank" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="tel:+916363671327" class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="card rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Full Stack Developer</h3>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Full Stack Developer skilled in building scalable web applications using the MERN stack and integrating AI-powered analytics and automation. Passionate about clean architecture, cloud-native deployments, and leveraging cutting-edge technologies to enhance product intelligence.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Strong foundation in developing innovative, production-ready solutions with a focus on modern web design trends, user experience, and delivering high-performance applications.
+                    </p>
+                </div>
+                <div class="card rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 gradient-text">Education</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-xl font-semibold text-white">Bachelor of Computer Applications</h4>
+                            <p class="text-gray-400">BMS College of Commerce and Management</p>
+                            <p class="text-gray-500">Bangalore, India</p>
+                            <p class="text-gray-500">08/2022 - 07/2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-black bg-opacity-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">Experience</h2>
+            <div class="relative timeline pl-12 md:pl-16 space-y-12">
+                <!-- Experience 1 -->
+                <div class="relative">
+                    <div class="timeline-dot"></div>
+                    <div class="card rounded-2xl p-8 ml-8">
+                        <div class="flex flex-wrap justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Full Stack Intern</h3>
+                                <p class="text-xl gradient-text font-semibold">SN Infosystem</p>
+                            </div>
+                            <span class="gradient-bg px-4 py-2 rounded-full text-sm font-semibold mt-2 md:mt-0">Dec 2025 - Present</span>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Building and maintaining scalable web applications with React.js and Material UI</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Implementing efficient global state management with Redux Toolkit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Backend development with Java, focusing on OOP concepts and memory models</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Collaborating with senior developers to deliver recruiter-facing dashboards</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Mentoring newcomers on technical concepts and workplace etiquette</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="relative">
+                    <div class="timeline-dot"></div>
+                    <div class="card rounded-2xl p-8 ml-8">
+                        <div class="flex flex-wrap justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Full Stack Development Intern</h3>
+                                <p class="text-xl gradient-text font-semibold">Resilience Infotech Pvt. Ltd.</p>
+                            </div>
+                            <span class="gradient-bg px-4 py-2 rounded-full text-sm font-semibold mt-2 md:mt-0">Feb 2025 - Apr 2025</span>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Developed secure digital examination platform with token-based authentication</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Designed RESTful APIs for exam management and automated result generation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-500 mt-1 mr-3"></i>
+                                <span>Built robust full-stack solution using React.js, Express.js, Redux Toolkit, and PostgreSQL</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">Featured Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card project-card rounded-2xl overflow-hidden">
+                    <div class="gradient-bg h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-white">Monetize IQ</h3>
+                            <i class="fas fa-chart-line text-3xl text-purple-500"></i>
+                        </div>
+                        <p class="text-gray-400 mb-4">AI-Powered YouTube Analytics & Summary Engine</p>
+                        <p class="text-gray-300 mb-4 text-sm">
+                            Real-time analytics dashboard processing YouTube channel data with AI-powered trend prediction and growth insights.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">React.js</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">Node.js</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">MongoDB</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">Gemini API</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://monetiz-iq.vercel.app/" target="_blank" class="gradient-bg px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="card project-card rounded-2xl overflow-hidden">
+                    <div class="gradient-bg h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-white">Fitness Tracker</h3>
+                            <i class="fas fa-dumbbell text-3xl text-purple-500"></i>
+                        </div>
+                        <p class="text-gray-400 mb-4">Full-Stack Fitness Application</p>
+                        <p class="text-gray-300 mb-4 text-sm">
+                            Comprehensive fitness app with real-time workout analytics, progress tracking, and data visualization features.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">React.js</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">Express.js</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">MongoDB</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">TensorFlow</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://fitness-tracker-4v44.vercel.app/" target="_blank" class="gradient-bg px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="card project-card rounded-2xl overflow-hidden">
+                    <div class="gradient-bg h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-white">Gemini AI Chat</h3>
+                            <i class="fas fa-robot text-3xl text-purple-500"></i>
+                        </div>
+                        <p class="text-gray-400 mb-4">AI-Powered Chatbot Application</p>
+                        <p class="text-gray-300 mb-4 text-sm">
+                            Intelligent chatbot with real-time conversational ability, timed assessments, and automated result calculation.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">Python</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">Gemini API</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs">NLP</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/Ullas9080" target="_blank" class="gradient-bg px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-black bg-opacity-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">Technical Skills</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Languages -->
+                <div class="card rounded-2xl p-6">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-code gradient-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">JavaScript</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Java</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Python</span>
+                    </div>
+                </div>
+
+                <!-- Frameworks -->
+                <div class="card rounded-2xl p-6">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-layer-group gradient-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Frameworks</h3>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">React.js</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Node.js</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Express.js</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Spring Boot</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Redux</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="card rounded-2xl p-6">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-database gradient-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Databases</h3>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">MongoDB</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">PostgreSQL</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">MySQL</span>
+                    </div>
+                </div>
+
+                <!-- DevOps & Tools -->
+                <div class="card rounded-2xl p-6">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-tools gradient-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">DevOps & Tools</h3>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Docker</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Git</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">GitHub</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">CI/CD</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">Postman</span>
+                        <span class="skill-tag px-3 py-2 rounded-lg text-sm">REST API</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strengths -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-center mb-6 gradient-text">Core Strengths</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="card px-6 py-3 rounded-full">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Problem Solving
+                    </div>
+                    <div class="card px-6 py-3 rounded-full">
+                        <i class="fas fa-clock text-blue-500 mr-2"></i> Time Management
+                    </div>
+                    <div class="card px-6 py-3 rounded-full">
+                        <i class="fas fa-users text-green-500 mr-2"></i> Team Collaboration
+                    </div>
+                    <div class="card px-6 py-3 rounded-full">
+                        <i class="fas fa-sync text-purple-500 mr-2"></i> Adaptability
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">Key Achievements</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card rounded-2xl p-8 text-center">
+                    <div class="text-5xl mb-4">
+                        <i class="fas fa-shield-alt gradient-text"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Enhanced System Reliability</h3>
+                    <p class="text-gray-300">
+                        Improved deployment time through automated CI/CD pipelines, boosting release efficiency and reducing manual errors
+                    </p>
+                </div>
+                <div class="card rounded-2xl p-8 text-center">
+                    <div class="text-5xl mb-4">
+                        <i class="fas fa-tachometer-alt gradient-text"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Real-Time Analytics Dashboard</h3>
+                    <p class="text-gray-300">
+                        Engineered high-performance dashboard capable of processing YouTube data in real time and delivering insights instantly
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black bg-opacity-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-4xl md:text-5xl font-bold mb-12 text-center">Get In Touch</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="card rounded-2xl p-8 text-center">
+                    <p class="text-xl text-gray-300 mb-8">
+                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <a href="mailto:ullasgowda.dev@gmail.com" class="card rounded-xl p-6 hover:scale-105 transition-transform">
+                            <i class="fas fa-envelope text-4xl gradient-text mb-3"></i>
+                            <h3 class="font-bold mb-2">Email</h3>
+                            <p class="text-gray-400 text-sm">ullasgowda.dev@gmail.com</p>
+                        </a>
+                        <a href="tel:+916363671327" class="card rounded-xl p-6 hover:scale-105 transition-transform">
+                            <i class="fas fa-phone text-4xl gradient-text mb-3"></i>
+                            <h3 class="font-bold mb-2">Phone</h3>
+                            <p class="text-gray-400 text-sm">+91 63636 71327</p>
+                        </a>
+                        <a href="https://linkedin.com/in/ullas-gowda9080" target="_blank" class="card rounded-xl p-6 hover:scale-105 transition-transform">
+                            <i class="fab fa-linkedin text-4xl gradient-text mb-3"></i>
+                            <h3 class="font-bold mb-2">LinkedIn</h3>
+                            <p class="text-gray-400 text-sm">ullas-gowda9080</p>
+                        </a>
+                        <a href="https://github.com/Ullas9080" target="_blank" class="card rounded-xl p-6 hover:scale-105 transition-transform">
+                            <i class="fab fa-github text-4xl gradient-text mb-3"></i>
+                            <h3 class="font-bold mb-2">GitHub</h3>
+                            <p class="text-gray-400 text-sm">Ullas9080</p>
+                        </a>
+                    </div>
+                    <a href="mailto:ullasgowda.dev@gmail.com" class="contact-btn gradient-bg px-8 py-4 rounded-full font-semibold text-lg inline-block hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                        Send Me a Message
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">
+                    © 2025 Ullas M. All rights reserved.
+                </p>
+                <div class="flex justify-center gap-6">
+                    <a href="mailto:ullasgowda.dev@gmail.com" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/ullas-gowda9080" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/Ullas9080" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-black');
+            } else {
+                nav.classList.remove('bg-black');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('#home');
+            if (heroSection) {
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Dynamic year in footer
+        const currentYear = new Date().getFullYear();
+        document.querySelector('footer p').textContent = `© ${currentYear} Ullas M. All rights reserved.`;
+    </script>
+</body>
+</html>
